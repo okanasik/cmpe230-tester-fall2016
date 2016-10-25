@@ -5,6 +5,7 @@
  - If you try on Windows operating system, please write your setup and write the problems you encounter on piazza. (such as problem with the path separator)
  - The scripts are for python3.
  - To be able to test your A86 assembly code, you are supposed to install dosbox. You can download and install as described [here](https://www.dosbox.com/wiki/Basic_Setup_and_Installation_of_DosBox). The test script is using dosbox by calling as a shell program. **Therefore make sure that you can run dosbox from command line from any directory.**
+ - **For the compiler projects**, I did not implemented in the samples code to check the extension of ".ac" and changing it to the ".asm", but you are supposed to check the extension of the file and if there is ".ac" extension change it with ".asm" to output the a86 assembly code.
 
 ## Steps to test your project
  1. Download as a zip folder or clone the project.
