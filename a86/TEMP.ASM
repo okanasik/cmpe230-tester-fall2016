@@ -1,0 +1,19 @@
+~^
+#ERROR messages will be removed if you leave these first two lines in     @@@@#
+jmp start
+x db 61
+start:
+  mov ah,02
+  mov dl,x
+  int 21h
+y db 120
+start:
+~     ^
+#ERROR 40: Conflicting Multiple Definition Not Allowed                    @@@@#
+  mov ah,02
+  mov dl,y
+  int 21h
+exit:
+  mov ah,4ch
+  mov al,00
+  int 21h
