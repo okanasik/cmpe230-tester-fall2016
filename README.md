@@ -5,6 +5,7 @@
  - If you try on Windows operating system, please write your setup and write the problems you encounter on piazza. (such as problem with the path separator)
  - The scripts are for python3.
  - To be able to test your A86 assembly code, you are supposed to install dosbox. You can download and install as described [here](https://www.dosbox.com/wiki/Basic_Setup_and_Installation_of_DosBox). The test script is using dosbox by calling as a shell program. **Therefore make sure that you can run dosbox from command line from any directory.**
+
 ## Steps to test your project
  1. Download as a zip folder or clone the project.
  2. Extract all the contents of the folder. The whole folder hierarchy supposed to be seen as at the end of this document
