@@ -36,8 +36,7 @@ void processStatements(vector<std::string>& lines, string output_file_name) {
 	}
 }
 
-int main(int argc, char** argv) {
-	string input_file_name = argv[1];
+void runCompiler(string& input_file_name) {
 	ifstream input_file(input_file_name.c_str());
 	vector<string> input_lines;
 	string line;
@@ -48,7 +47,36 @@ int main(int argc, char** argv) {
 		input_file.close();
 	}
 	// add the extension to the input file
+	// if the input file has ".ac" convert this into ".asm"
 	string output_file_name = input_file_name + ".asm";
 	processStatements(input_lines, output_file_name);
+}
+
+void runInterpreter() {
+	std::string line;
+	char variable;
+	int value = 0;
+	while(std::getline(std::cin, line)) {
+		std::size_t found = line.find("=");
+		if (found != std::string::npos) {
+			// get the variable name
+			variable = line.at(0);
+			// get the assigned value
+			value = line.at(2)-'0';
+		} else if (line.at(0) == variable) {
+			std::cout << value << std::endl;
+		}
+	}
+}
+
+int main(int argc, char** argv) {
+	if (argc == 1) {
+		// interpreter mode
+		runInterpreter();
+	} else if (argc == 2) {
+		// compiler mode
+		string input_file_name = argv[1];
+		runCompiler(input_file_name);
+	}
 	return 0;
 }
