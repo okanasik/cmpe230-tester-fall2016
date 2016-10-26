@@ -8,7 +8,7 @@ using namespace std;
 void processStatements(vector<std::string>& lines, string output_file_name) {
 	ofstream output_file(output_file_name.c_str());
 	if (output_file.is_open()) {
-		output_file << "jmp start" << endl;
+		//output_file << "jmp start" << endl;
 		for (int i = 0; i < lines.size(); i++) {
 			char variable;
 			int value;
@@ -19,19 +19,25 @@ void processStatements(vector<std::string>& lines, string output_file_name) {
 				// get the assigned value
 				value = lines.at(i).at(2);
 				// define the variable
-				output_file << variable << " db " << value << endl;
+				//output_file << variable << " db " << value << endl;
+
+				// handle only the errors
+				output_file << "ERROR:" << 1 << " missing operand" << endl;
 			} else if (lines.at(i).at(0) == variable) {
 				// print the given variable
-				output_file << "start:" << endl;
-				output_file << "  mov ah, 02" << endl;
-				output_file << "  mov dl, " << variable << endl;
-				output_file << "  int 21h" << endl;
+				//output_file << "start:" << endl;
+				//output_file << "  mov ah, 02" << endl;
+				//output_file << "  mov dl, " << variable << endl;
+				//output_file << "  int 21h" << endl;
+				
+				// handle just errors
+				output_file << "ERROR:" << 2 << " undefined variable" << endl;
 			}
 		}
-		output_file << "exit:" << endl;
-		output_file << "  mov ah,4Ch" << endl;
-		output_file << "  mov al,00" << endl;
-		output_file << "  int 21h" << endl;
+		//output_file << "exit:" << endl;
+		//output_file << "  mov ah,4Ch" << endl;
+		//output_file << "  mov al,00" << endl;
+		//output_file << "  int 21h" << endl;
 		output_file.close();
 	}
 }
@@ -53,18 +59,22 @@ void runCompiler(string& input_file_name) {
 }
 
 void runInterpreter() {
-	std::string line;
+	string line;
 	char variable;
 	int value = 0;
 	while(std::getline(std::cin, line)) {
-		std::size_t found = line.find("=");
+		size_t found = line.find("=");
 		if (found != std::string::npos) {
 			// get the variable name
 			variable = line.at(0);
 			// get the assigned value
 			value = line.at(2)-'0';
+			// handles only the errors
+			cout << "ERROR:" << 1 << " missing operand" << endl;
 		} else if (line.at(0) == variable) {
-			std::cout << value << std::endl;
+			//cout << value << endl;
+			// handles only the errors
+			cout << "ERROR:" << 2 << " undefined variable" << endl;
 		}
 	}
 }

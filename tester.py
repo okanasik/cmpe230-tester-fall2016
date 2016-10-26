@@ -53,8 +53,14 @@ def check_program_output(base_dir, test_file, output_lines):
         return False
     
     for line_index in range(len(true_output_lines)):
-        if output_lines[line_index] != true_output_lines[line_index]:
-            return False
+        # check for the syntax error handling
+        if true_output_lines[line_index].find("ERROR") >= 0:
+            if output_lines[line_index].find("ERROR") == -1:
+                return False
+        else:
+            # check the equivalence of lines only if it is not error output
+            if output_lines[line_index] != true_output_lines[line_index]:
+                return False
         
     return True
 
