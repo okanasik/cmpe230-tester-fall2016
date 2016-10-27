@@ -15,7 +15,7 @@
  5. To test your interpreter run `./interpreter-tester.py projects/<studentID>`
  6. To test your compiler run `./compiler-tester.py <path-to-this-folder>/a86 projects/<studentID>`
  7. There is only two testcases for now, but I will notify you when I add new testcases, but you can also write your own testcases here. I will score your projects with different test cases and **also I will check your implementation**.
- 8. Your program will also handle the error cases. If there is a syntax error, the program will print the following string `ERROR:<line number> <cause of error>`. (I will update scripts and add new testcases which will have syntax errors.). If the program is in interpreter mode, it will not print `<line number>`.
+ 8. Your program will also handle the error cases. If there is a syntax error, the program will print the following string `ERROR:<line number> <cause of error>`. If the program is in interpreter mode, it will not print the `<line number>`. If the program is in compiler mode, it will output the error on the standard output stream and it will compile an assembly program from the lines which do not have any errors.
  9. If you have any problems, please write the problem on piazza with the steps which are required to recreate the problem.
 
 ## Folder Structure
