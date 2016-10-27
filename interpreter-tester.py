@@ -11,8 +11,8 @@ import os
 from tester import compile_code
 from tester import execute_command_with_input
 from tester import check_program_output
-from tester import get_test_files, get_test_input    
-    
+from tester import get_test_files, get_test_input
+
 def run_interpreter_tests(base_dir, project_dir):
     test_files = get_test_files(base_dir)
     for test_file in test_files:
@@ -25,8 +25,14 @@ def run_interpreter_tests(base_dir, project_dir):
         # remove the empty line at the end of the program
         if len(output_lines[len(output_lines)-1]) == 0:
             del output_lines[len(output_lines)-1]
+
+        full_test_output_file_path = base_dir + "/testcases/" + test_file + ".out"
+        fp = open(full_test_output_file_path)
+        true_output_lines = []
+        for line in fp:
+            true_output_lines.append(line.strip("\n"))
         
-        if check_program_output(base_dir, test_file, output_lines):
+        if check_program_output(base_dir, true_output_lines, output_lines):
             print(test_file + ":" + "PASSED")
         else:
             print(test_file + ":" + "FAILED")

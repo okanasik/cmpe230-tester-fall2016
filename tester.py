@@ -40,20 +40,14 @@ def get_test_input(base_dir, test_file):
     return input_lines
 
 
-def check_program_output(base_dir, test_file, output_lines):
-    full_test_output_file_path = base_dir + "/testcases/" + test_file + ".out"
-    fp = open(full_test_output_file_path)
-    true_output_lines = []
-    for line in fp:
-        true_output_lines.append(line.strip("\n"))
-        
+def check_program_output(base_dir, true_output_lines, output_lines):        
     # check whether we have equal number of lines
     if len(output_lines) != len(true_output_lines):
         # print(str(len(output_lines)) + "-" + str(len(true_output_lines)))
         return False
     
     for line_index in range(len(true_output_lines)):
-        # check for the syntax error handling
+        # check for the syntax error handling used only by the interpreter program
         if true_output_lines[line_index].find("ERROR") >= 0:
             if output_lines[line_index].find("ERROR") == -1:
                 return False

@@ -5,14 +5,14 @@
 
 using namespace std;
 
-void processStatements(vector<std::string>& lines, string output_file_name) {
+void processStatements(vector<std::string>& lines, string& output_file_name) {
 	ofstream output_file(output_file_name.c_str());
 	if (output_file.is_open()) {
-		//output_file << "jmp start" << endl;
+		output_file << "jmp start" << endl;
+		char variable = '0';
+		int value = 0;
 		for (int i = 0; i < lines.size(); i++) {
-			char variable;
-			int value;
-			std::size_t found = lines.at(i).find("=");
+			size_t found = lines.at(i).find("=");
 			if (found != std::string::npos) {
 				// get the variable name
 				variable = lines.at(i).at(0);
@@ -22,22 +22,24 @@ void processStatements(vector<std::string>& lines, string output_file_name) {
 				//output_file << variable << " db " << value << endl;
 
 				// handle only the errors
-				output_file << "ERROR:" << 1 << " missing operand" << endl;
+				cout << "ERROR:" << 1 << " missing operand" << endl;
 			} else if (lines.at(i).at(0) == variable) {
 				// print the given variable
 				//output_file << "start:" << endl;
 				//output_file << "  mov ah, 02" << endl;
 				//output_file << "  mov dl, " << variable << endl;
 				//output_file << "  int 21h" << endl;
-				
-				// handle just errors
-				output_file << "ERROR:" << 2 << " undefined variable" << endl;
 			}
 		}
-		//output_file << "exit:" << endl;
-		//output_file << "  mov ah,4Ch" << endl;
-		//output_file << "  mov al,00" << endl;
-		//output_file << "  int 21h" << endl;
+		char zeroValue = '0';
+		output_file << "start:" << endl;
+		output_file << "  mov ah, 02" << endl;
+		output_file << "  mov dl, " << (int)zeroValue << endl;
+		output_file << "  int 21h" << endl;
+		output_file << "exit:" << endl;
+		output_file << "  mov ah,4Ch" << endl;
+		output_file << "  mov al,00" << endl;
+		output_file << "  int 21h" << endl;
 		output_file.close();
 	}
 }
@@ -74,7 +76,8 @@ void runInterpreter() {
 		} else if (line.at(0) == variable) {
 			//cout << value << endl;
 			// handles only the errors
-			cout << "ERROR:" << 2 << " undefined variable" << endl;
+//			cout << "ERROR:" << 2 << " undefined variable" << endl;
+			cout << 0 << endl;
 		}
 	}
 }
