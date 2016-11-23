@@ -7,18 +7,32 @@ Created on Sun Oct 23 00:46:20 2016
 @author: okan
 """
 import os
-from subprocess import STDOUT, check_output, Popen, PIPE
+from subprocess import STDOUT, check_output, Popen, PIPE, TimeoutExpired, CalledProcessError
 import shlex
 
+def is_int(number_str):
+    try:
+        int(number_str)
+    except:
+        return False
+    return True
+
+
 def execute_command(command):
-    output = check_output(shlex.split(command), stderr=STDOUT, timeout=10)
+    output = None
+    try:
+        output = check_output(shlex.split(command), stderr=STDOUT, timeout=3)
+    except TimeoutExpired:
+        return ""
+    except CalledProcessError:
+        return ""
     output = output.decode('utf-8')
     return output
 
 
 def execute_command_with_input(cmd, input_lines):
     p = Popen(shlex.split(cmd), stdin=PIPE, stdout=PIPE)
-    output = p.communicate("\n".join(input_lines).encode('utf-8'))
+    output = p.communicate("\n".join(input_lines).encode('utf-8'), timeout=3)
     return output[0].decode('utf-8')    
     
     
@@ -52,8 +66,10 @@ def check_program_output(base_dir, true_output_lines, output_lines):
             if output_lines[line_index].find("ERROR") == -1:
                 return False
         else:
+            if not is_int(output_lines[line_index]):
+                return False
             # check the equivalence of lines only if it is not error output
-            if output_lines[line_index] != true_output_lines[line_index]:
+            if int(output_lines[line_index]) != int(true_output_lines[line_index]):
                 return False
         
     return True

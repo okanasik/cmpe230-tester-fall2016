@@ -1,0 +1,7 @@
+T=1
+Y=3
+T=T+Y
+T=T+Y
+T=T+Y
+T=T+Y
+T
